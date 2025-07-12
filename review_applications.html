@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Adoption Applications</title>
+</head>
+<body>
+    <h1>Pending Adoption Applications</h1>
+
+    {% if applications %}
+        <ul>
+            {% for app in applications %}
+                <li>
+                    <strong>{{ app.a_f_name }} {{ app.a_l_name }}</strong><br>
+                    Email: {{ app.a_email }}<br>
+                    Address: {{ app.a_street_addr }}, {{ app.a_city }}, {{ app.a_state }} {{ app.a_postal_code }}<br>
+                    Phone: {{ app.a_phone }}<br>
+                    Family Size: {{ app.a_family_size }}<br>
+                    Application Date: {{ app.app_date }}<br>
+
+                    <!-- Approve Button -->
+                    <form action="/approve" method="post" style="display:inline;">
+                        <input type="hidden" name="a_email" value="{{ app.a_email }}">
+                        <input type="hidden" name="app_date" value="{{ app.app_date }}">
+                        <button type="submit">✅ Approve</button>
+                    </form>
+
+                    <!-- Reject Button -->
+                    <form action="/reject" method="post" style="display:inline;">
+                        <input type="hidden" name="a_email" value="{{ app.a_email }}">
+                        <input type="hidden" name="app_date" value="{{ app.app_date }}">
+                        <button type="submit">❌ Reject</button>
+                    </form>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending applications.</p>
+    {% endif %}
+</body>
+</html>
+
